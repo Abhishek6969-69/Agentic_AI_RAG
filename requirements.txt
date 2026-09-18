@@ -1,0 +1,14 @@
+fastapi
+uvicorn
+python-dotenv
+
+pymupdf
+langchain
+langchain-text-splitters
+langchain-pinecone
+langchain-groq
+langgraph
+
+pinecone
+
+sentence-transformers
