@@ -1,27 +1,16 @@
-import fitz
+from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.documents import Document
 
 
-def load_pdf(file_path: str) -> list[Document]:
-    pdf = fitz.open(file_path)
+def chunk_documents(
+    documents: list[Document],
+) -> list[Document]:
 
-    documents = []
+    splitter = RecursiveCharacterTextSplitter(
+        chunk_size=1000,
+        chunk_overlap=200,
+    )
 
-    for page_number, page in enumerate(pdf):
-        text = page.get_text()
+    chunks = splitter.split_documents(documents)
 
-        if text.strip():
-            documents.append(
-                Document(
-                    page_content=text,
-                    metadata={
-                        "page": page_number + 1,
-                        "source": file_path
-                    }
-                )
-            )
-
-    pdf.close()
-
-    return documents
-
+    return chunks
